@@ -1,0 +1,84 @@
+﻿@page
+@model BooklistRazor.Pages.BookList.IndexModel
+
+
+<h1>Index Book Page</h1>
+<div class="container row p-0 m-0">
+    <div class="col-6">
+        <h2 class="text-info">Book List</h2>
+    </div>
+    <div class="col-3">
+        <a class="btn btn-info form-control text-white" asp-page="CreateBook">Create New Book</a>
+    </div>
+    <div class="col-3">
+        <a class="btn btn-info form-control text-white" asp-page="Upsert">Add(upsert) New Book</a>
+    </div>
+
+    <div class="col-12 border p-3 mt-3">
+        <form method="post">
+            @if (Model.books.Count() > 0)
+            {
+                <table class="table table-striped border">
+
+                    <tr class="table-secondary">
+                        <th>
+                            <label asp-for="books.FirstOrDefault().BookName"></label>
+                        </th>
+                        <th>
+                            @*@Html.DisplayNameFor(e=>e.books.FirstOrDefault().AuthorName)     HTML Tag helper to display Content*@
+                            <label asp-for="books.FirstOrDefault().AuthorName"></label>
+                        </th>
+                        <th>
+                            <label asp-for="books.FirstOrDefault().ISBN"></label>
+                        </th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model.books)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(e => item.BookName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(e => item.AuthorName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(e => item.ISBN)
+                            </td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" onclick="Delete('https://localhost:44390/api/Book?bookId='+@item.BookId);" asp-page-handler="Delete" asp-route-bookId="@item.BookId">Delete</button>
+                                <a class="btn btn-success btn-sm text-white" asp-page="Upsert" asp-route-bookId="@item.BookId">Edit</a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            }
+            else
+            {
+                <p> No Books Available</p>
+            }
+        </form>
+    </div>
+    <div class="col-12" style="text-align:center">
+        <br />
+        <span class="h3 text-info">OR</span>
+        <br /><br />
+    </div>
+    <div class="col-12 border p-3">
+        <table id="dataLoad" style="width:100%" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Book Name</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+            </thead>
+
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script  src="~/js/Booklist.js"></script>
+
+}

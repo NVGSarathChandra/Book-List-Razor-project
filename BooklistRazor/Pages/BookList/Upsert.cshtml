@@ -1,0 +1,64 @@
+﻿@page
+@model BooklistRazor.Pages.BookList.UpsertModel
+
+<br />
+<h2>@(Model.book.BookId!=0? "Edit Book":"Create Book")</h2>
+<br />
+
+<div class="border container " style="padding:30px">
+    <form method="post">
+        @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+        @if (Model.book.BookId != 0)
+        {
+            <input type="hidden" asp-for="book.BookId" />
+
+        }
+
+        <div class="form-group row">
+
+            <div class="col-3">
+                <label asp-for="book.BookName"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="book.BookName" class="form-control" />
+            </div>
+            <span asp-validation-for="book.BookName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="book.AuthorName"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="book.AuthorName" class="form-control" />
+            </div>
+            <span asp-validation-for="book.AuthorName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="book.ISBN"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="book.ISBN" class="form-control" />
+            </div>
+            <span asp-validation-for="book.ISBN" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3 offset-3">
+        <input type="hidden" asp-for="book.BookId" />
+        <input type="hidden" asp-for="book.BookId" />
+                <button type="submit" class="btn btn-primary form-control ">@(Model.book.BookId!=0? "Update Book":"Create Book")</button>
+            </div>
+            <div class="col-3">
+                <a asp-page="Index" class="btn btn-success form-control">Back to List</a>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
