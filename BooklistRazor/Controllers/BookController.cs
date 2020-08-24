@@ -18,9 +18,9 @@ namespace BooklistRazor.Controllers
             this.dbContext = bookDbContext;
         }
         [HttpGet]
-        public async  Task<IActionResult> Get()
+        public async Task<IActionResult> Get()
         {
-            return   Json(new { data = await dbContext.Book.ToListAsync() });
+            return Json(new { data = await dbContext.Book.ToListAsync() });
 
         }
         [HttpDelete]
@@ -32,7 +32,7 @@ namespace BooklistRazor.Controllers
                 return NotFound("Unable to delete, Book not found");
             }
             dbContext.Book.Remove(bookFromDb);
-           await dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
             return Json(new { success = true, message = "Delete successfull" });
         }
     }

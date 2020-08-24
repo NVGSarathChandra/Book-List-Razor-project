@@ -18,40 +18,42 @@
         <form method="post">
             @if (Model.books.Count() > 0)
             {
-                <table class="table table-striped border">
-
-                    <tr class="table-secondary">
-                        <th>
-                            <label asp-for="books.FirstOrDefault().BookName"></label>
-                        </th>
-                        <th>
-                            @*@Html.DisplayNameFor(e=>e.books.FirstOrDefault().AuthorName)     HTML Tag helper to display Content*@
-                            <label asp-for="books.FirstOrDefault().AuthorName"></label>
-                        </th>
-                        <th>
-                            <label asp-for="books.FirstOrDefault().ISBN"></label>
-                        </th>
-                        <th></th>
-                    </tr>
-                    @foreach (var item in Model.books)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(e => item.BookName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(e => item.AuthorName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(e => item.ISBN)
-                            </td>
-                            <td>
-                                <button class="btn btn-danger btn-sm" onclick="Delete('https://localhost:44390/api/Book?bookId='+@item.BookId);" asp-page-handler="Delete" asp-route-bookId="@item.BookId">Delete</button>
-                                <a class="btn btn-success btn-sm text-white" asp-page="Upsert" asp-route-bookId="@item.BookId">Edit</a>
-                            </td>
+                <table class="table table-striped border" id="bookListTable">
+                    <thead>
+                        <tr @*class="table-secondary"*@>
+                            <th>
+                                <label asp-for="books.FirstOrDefault().BookName"></label>
+                            </th>
+                            <th>
+                                @*@Html.DisplayNameFor(e=>e.books.FirstOrDefault().AuthorName)     HTML Tag helper to display Content*@
+                                <label asp-for="books.FirstOrDefault().AuthorName"></label>
+                            </th>
+                            <th>
+                                <label asp-for="books.FirstOrDefault().ISBN"></label>
+                            </th>
+                            <th></th>
                         </tr>
-                    }
-
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.books)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(e => item.BookName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(e => item.AuthorName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(e => item.ISBN)
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm" onclick="Delete('https://localhost:44390/api/Book?bookId='+@item.BookId);" asp-page-handler="Delete" asp-route-bookId="@item.BookId">Delete</button>
+                                    <a class="btn btn-success btn-sm text-white" asp-page="Upsert" asp-route-bookId="@item.BookId">Edit</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             }
             else

@@ -4,13 +4,15 @@ var dataTable;
 
 $(document).ready(function () {
     loadDataTable();
+    $('#bookListTable').dataTable();
 });
+
 
 function loadDataTable() {
     dataTable = $('#dataLoad').DataTable({
         "ajax": {
             "url": "/api/Book",
-            "method": "GET",
+            "type": "GET",
             "datatype": "json"
         },
         "columns": [
@@ -18,8 +20,7 @@ function loadDataTable() {
             { "data": "authorName", "width": "20%" },
             { "data": "isbn", "width": "20%" },
             {
-                "data": "bookId",
-                "render": function (data) {
+                "data": "bookId", "render": function (data) {
                     return `<div class="text-center">
                         <a href="/BookList/Upsert?bookId=${data}" class='btn btn-success text-white' style='cursor:pointer; width:70px;'>
                             Edit
@@ -30,7 +31,8 @@ function loadDataTable() {
                             Delete
                         </a>
                         </div>`
-                }, "width": "40%"
+                },
+                "width": "40%"
             }
         ],
         "language": {
@@ -61,7 +63,7 @@ function Delete(url) {
                     else {
                         toastr.error(data.message);
                     }
-                }   
+                }
 
             });
         }
